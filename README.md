@@ -1,105 +1,84 @@
+Ground Human-Following Robot with Recovery System
+
+This project is my Capstone Project 2 for the Bachelor of Computer Science program at Sunway University.
+It is a ROS-based ground robot that can detect, track, and follow a specific human target, and recover their position if temporarily lost.
+
+Project Summary
+
+The system uses an Intel RealSense RGB-D camera and a TensorFlow SSD MobileNet V2 model to detect humans in real time. A color-based identification method (HSV filtering) is applied to distinguish the main target from other people. Depth data from the camera is used to measure the distance to the target, while the center offset of the bounding box is used to guide robot rotation.
+
+If the main target is lost for more than 5 seconds, the system records the last observed orientation and depth, then calculates the target’s estimated location using trigonometric functions. The predicted coordinates are sent to the robot’s navigation API so it can move toward the last known position.
+
+Main Features
+
+Human detection using SSD MobileNet V2.
+
+Target identification using HSV color segmentation.
+
+Depth-based distance measurement.
+
+ROS publish/subscribe communication between detection and navigation modules.
+
+Recovery module that predicts the target’s location when lost.
+
+Navigation control for the Reeman Big Dog robot.
+
+How It Works
+
+Detection – The camera feed is processed by the SSD model to detect humans.
+
+Target Selection – The main target is identified using HSV color filtering.
+
+Tracking – Depth and position offset data are used to control rotation and movement.
+
+Recovery – If the target is lost, last known position and depth are used to predict their new location.
+
+Navigation – The robot moves toward the predicted location using its navigation API.
+
+Files
+
+human_detection.py – Detects humans, identifies the main target, and publishes target location data.
+
+hd2.py – Subscribes to target data, calculates estimated position, and sends navigation commands.
+
+pose.py, clr.py, hdlr.py – Support modules.
+
+AL_21007364_Sep23.pdf – Activity log.
+
+FR_21007364_Sep23.pdf – Final project report.
+
+Requirements
+
+Reeman Big Dog robot with LIDAR.
+
+Intel RealSense D435 or compatible RGB-D camera.
+
+ROS on Ubuntu 16.04.
+
+Python 3.x with:
+
+pyrealsense2
+
+numpy
+
+opencv-python
+
+tensorflow 1.x
+
+rospy and ROS Python packages.
+
+Running the Project
+
+Start the ROS core:
+
+roscore
 
 
-````markdown
-# 🤖 Ground Human-Following Robot with Recovery System
+Run the human detection script:
 
-This repository contains the code and documentation for my **Capstone Project 2** at Sunway University (BSc Computer Science).  
-It implements a **ROS-based ground robot** that can detect, track, and follow a designated human target — and recover their location if temporarily lost.
+python human_detection.py
 
-📄 **Full Report:** [FR_21007364_Sep23.pdf](FR_21007364_Sep23.pdf)  
-📊 **Activity Log:** [AL_21007364_Sep23.pdf](AL_21007364_Sep23.pdf)
 
----
+Run the navigation/recovery script:
 
-## ✨ Features
-- **Real-time Human Detection** using **SSD MobileNet V2** with TensorFlow.
-- **Main Target Identification** via **HSV color segmentation**.
-- **Depth & Position Tracking** using Intel RealSense RGB-D camera.
-- **ROS Publish/Subscribe** system to share target data between nodes.
-- **Recovery Module** that estimates the target's last known position using trigonometric calculations.
-- **Navigation Control** for the Reeman Big Dog Chassis.
-
----
-
-## 🛠 Hardware & Software Requirements
-- **Hardware**
-  - Reeman Big Dog Chassis with LIDAR
-  - Intel RealSense D435 (or compatible RGB-D camera)
-  - Laptop running Ubuntu 16.04 (ROS compatible)
-
-- **Software**
-  - ROS (Robot Operating System)
-  - Python 3.x  
-    ```bash
-    pip install pyrealsense2 numpy opencv-python tensorflow==1.15
-    sudo apt install ros-<distro>-cv-bridge ros-<distro>-image-transport
-    ```
-
----
-
-## 📂 Project Structure
-````
-
-├── human\_detection.py     # Detects humans, IDs main target, publishes pose & depth
-├── hd2.py                 # Subscribes to target data, calculates position, sends nav commands
-├── pose.py                # Utility for pose retrieval
-├── clr.py / hdlr.py       # Support modules (color filtering, lidar processing)
-├── AL\_21007364\_Sep23.pdf  # Activity log
-├── FR\_21007364\_Sep23.pdf  # Final report
-
-````
-
----
-
-## ⚙️ Setup & Running
-1. **Start ROS core**
-   ```bash
-   roscore
-````
-
-2. **Run the human detection node**
-
-   ```bash
-   python human_detection.py
-   ```
-3. **Run the navigation/recovery node**
-
-   ```bash
-   python hd2.py
-   ```
-
----
-
-## 🧠 How It Works
-
-1. **Detection** – SSD model finds all humans in the camera frame.
-2. **Target Selection** – HSV color segmentation chooses the main target.
-3. **Tracking** – Depth & bounding box center offset guide the robot's rotation and movement.
-4. **Recovery** – If target is lost, last known orientation & depth are used to calculate a predicted location.
-5. **Navigation** – Coordinates are sent to `/cmd/nav` API for the robot to move toward the target.
-
----
-
-## 📸 System Diagram
-
-![System Diagram](docs/system_diagram.png)
-
----
-
-## 📅 Development Timeline
-
-See the **Capstone 2 Gantt Charts** in [AL\_21007364\_Sep23.pdf](AL_21007364_Sep23.pdf) for the full development schedule.
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
-
-```
-
----
-
-If you want, I can **also extract a real diagram** from your Capstone PDF and save it as `docs/system_diagram.png` so it displays perfectly in the README.  
-Do you want me to grab one of your diagrams and include it? That would make the page look much more professional.
-```
+python hd2.py
