@@ -1,4 +1,3 @@
-Here’s your project written **in plain words but formatted as a README.md** so you can drop it straight into GitHub:
 
 ````markdown
 # Ground Human-Following Robot with Recovery System
@@ -64,4 +63,4 @@ The predicted coordinates are sent to the robot’s navigation API so it can mov
    python hd2.py
    ```
 
-```
+
