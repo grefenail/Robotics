@@ -1,15 +1,4 @@
-Got it ✅
-I’ll prepare you a **ready-to-upload `README.md`** that:
 
-* Highlights the project purpose and features.
-* Gives quick **setup & usage** steps.
-* Shows a **diagram/screenshot** from your Capstone report.
-* Links to your **full PDF report** in the repo.
-* Uses **clean Markdown** so it looks professional on GitHub.
-
-Here’s your draft:
-
----
 
 ````markdown
 # 🤖 Ground Human-Following Robot with Recovery System
