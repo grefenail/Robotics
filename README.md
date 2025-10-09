@@ -17,13 +17,7 @@ It demonstrates the integration of **computer vision**, **sensor fusion**, and *
 ## ⚙️ System Architecture
 
 
-Intel RealSense RGB-D Camera → Object Detection (TensorFlow SSD MobileNet V2)
-↓
-HSV Color Filtering → Target Selection
-↓
-Distance & Offset Calculation
-↓
-Target Recovery (Kalman Prediction) → Navigation Control (ROS)
+<img width="1077" height="603" alt="image" src="https://github.com/user-attachments/assets/47e66662-6594-47ab-b390-52f515f65395" />
 
 
 ---
