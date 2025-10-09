@@ -1,56 +1,60 @@
+Paste this into your README.md and edit small details like file paths or demo images.
 
-````markdown
-# Ground Human-Following Robot with Recovery System
+# 🤖 Ground Human-Following Robot with Recovery System
 
-This project is my Capstone Project 2 for the Bachelor of Computer Science program at Sunway University.  
-It is a ROS-based ground robot that can detect, track, and follow a specific human target, and recover their position if temporarily lost.
+A ROS-based autonomous ground robot that can **detect, track, and follow a human target**, and **recover** when the target is lost using predicted coordinates.
 
-## Project Summary
-The system uses an Intel RealSense RGB-D camera and a TensorFlow SSD MobileNet V2 model to detect humans in real time.  
-A color-based identification method (HSV filtering) is applied to distinguish the main target from other people.  
-Depth data from the camera is used to measure the distance to the target, while the center offset of the bounding box is used to guide robot rotation.
+![Robot Demo](docs/demo.gif) <!-- (Optional: add a short demo gif or image) -->
 
-If the main target is lost for more than 5 seconds, the system records the last observed orientation and depth, then calculates the target’s estimated location using trigonometric functions.  
-The predicted coordinates are sent to the robot’s navigation API so it can move toward the last known position.
+---
 
-## Main Features
-- Human detection using SSD MobileNet V2.
-- Target identification using HSV color segmentation.
-- Depth-based distance measurement.
-- ROS publish/subscribe communication between detection and navigation modules.
-- Recovery module that predicts the target’s location when lost.
-- Navigation control for the Reeman Big Dog robot.
+## 🧩 Project Overview
+This project was developed as **Capstone Project 2** for the *Bachelor of Computer Science (Hons)* program at **Sunway University**.  
+It demonstrates the integration of **computer vision**, **sensor fusion**, and **robot navigation** using **ROS** and **TensorFlow**.
 
-## How It Works
-1. **Detection** – The camera feed is processed by the SSD model to detect humans.
-2. **Target Selection** – The main target is identified using HSV color filtering.
-3. **Tracking** – Depth and position offset data are used to control rotation and movement.
-4. **Recovery** – If the target is lost, last known position and depth are used to predict their new location.
-5. **Navigation** – The robot moves toward the predicted location using its navigation API.
+---
 
-## Files
-- `human_detection.py` – Detects humans, identifies the main target, and publishes target location data.
-- `hd2.py` – Subscribes to target data, calculates estimated position, and sends navigation commands.
-- `pose.py`, `clr.py`, `hdlr.py` – Support modules.
-- `AL_21007364_Sep23.pdf` – Activity log.
-- `FR_21007364_Sep23.pdf` – Final project report.
+## ⚙️ System Architecture
 
-## Requirements
-- Reeman Big Dog robot with LIDAR.
-- Intel RealSense D435 or compatible RGB-D camera.
-- ROS on Ubuntu 16.04.
-- Python 3.x with:
-  - pyrealsense2
-  - numpy
-  - opencv-python
-  - tensorflow 1.x
-  - rospy and ROS Python packages.
 
-## Running the Project
-1. Start the ROS core:
+Intel RealSense RGB-D Camera → Object Detection (TensorFlow SSD MobileNet V2)
+↓
+HSV Color Filtering → Target Selection
+↓
+Distance & Offset Calculation
+↓
+Target Recovery (Kalman Prediction) → Navigation Control (ROS)
+
+
+---
+
+## 🧠 Main Features
+- Real-time **human detection and tracking** using TensorFlow SSD MobileNet V2  
+- **HSV color filtering** to isolate the primary target from background noise  
+- **Recovery mode** that predicts target location when temporarily lost  
+- Integration with **ROS navigation stack** for autonomous motion  
+- Depth-based distance estimation and orientation correction  
+
+---
+
+## 🧪 Technologies Used
+| Category | Tools / Frameworks |
+|-----------|--------------------|
+| Programming | Python, ROS |
+| Vision | TensorFlow, OpenCV |
+| Sensors | Intel RealSense RGB-D |
+| Simulation | Webots |
+| ML Model | SSD MobileNet V2 |
+| Control | Kalman Prediction, PID |
+
+---
+
+## 🧰 Installation & Setup
+1. Clone this repository  
    ```bash
-   roscore
-````
+   git clone https://github.com/grefenail/Robotics.git
+   cd Robotics/ground_following_robot
+   
 
 2. Run the human detection script:
 
