@@ -1,5 +1,3 @@
-Paste this into your README.md and edit small details like file paths or demo images.
-
 # 🤖 Ground Human-Following Robot with Recovery System
 
 A ROS-based autonomous ground robot that can **detect, track, and follow a human target**, and **recover** when the target is lost using predicted coordinates.
